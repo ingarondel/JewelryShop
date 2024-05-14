@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: Jewelry API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /api/v1/products:
+    get:
+      summary: Get a list of products
+      tags:
+        - Products
+      operationId: getProduct
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: A list of products for the authenticated user
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Products'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      summary: Create a new product for the authenticated user
+      operationId: createProduct
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: The products to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          description: The created product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/products/{productId}:
+    parameters:
+      - in: path
+        name: product_id
+        required: true
+        description: The ID of the product to retrieve, update or delete
+        schema:
+          type: integer
+    get:
+      summary: Get a product by ID
+      operationId: getProductById
+      security:
+        - BearerAuth: []
+      responses:
+        '200':
+          description: The product with the given ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      summary: Update a product by ID
+      operationId: updateProsuctById
+      security:
+        - BearerAuth: []
+      requestBody:
+        description: The updated product data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: The updated product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      summary: Delete a product by ID
+      operationId: deleteProductById
+      security:
+        - BearerAuth: []
+      responses:
+        '204':
+          description: The product was successfully deleted
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Product:
+      type: object
+      required:
+        - id
+        - title
+        - status
+      properties:
+        product_id:
+          type: integer
+          example: 1
+        category_id:
+          type: integer
+          example: 1
+        brand_id:
+          type: integer
+          example: 1
+        title:
+          type: string
+          example: Signature Ring 128
+        bytitle:
+          type: string
+          example: signature-ring-128
+        content:
+          type: string
+          example: Vel esse sint consectetur qui ut aut qui quia quos voluptatem tenetur placeat dolorem enim eum necessitatibus et aspernatur unde.
+        price:
+          type: number
+          example: 49.0
+        old_price:
+          type: number
+          example: 40.9
+        status:
+          type: integer
+          example: 1
+        keywords:
+          type: string
+          example: keywords
+        description:
+          type: string
+          example: Voluptatibus dolores in voluptatem incidunt accusamus expedita impedit eveniet ut.
+        img:
+          type: string
+          example: p-1.jpg
+        hit:
+          type: integer
+          example: 1
+    Products:
+      type: array
+      items:
+        $ref: '#/components/schemas/Product'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    BadRequest:
+      description: Invalid request body or parameters
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error
+            required:
+              - message
+    Unauthorized:
+      description: Authentication credentials were missing or invalid
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error
+            required:
+              - message
+    NotFound:
+      description: Record not found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                description: A description of the error
+            required:
+              - message
+
