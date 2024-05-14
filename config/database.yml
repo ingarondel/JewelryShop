@@ -11,7 +11,11 @@ default: &default
 
 development:
   <<: *default
-  database: gifts_shop_development
+  database: jewelry_shop_development
 test:
   <<: *default
-  database: gifts_shop_test
+  database: jewelry_shop_test
+production:
+  <<: *default
+  database: jewelry_shop_production
+  url: <%= ENV['DATABASE_URL'] %>

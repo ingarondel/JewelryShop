@@ -2,6 +2,8 @@
 
 require 'faker'
 
+admin = User.create(email: 'admin@gmail.com', password: '123456', admin: 't')
+
 #table categories
 
 women = Category.create(title: 'Women', bytitle: 'women', keywords: 'women', description: 'for women')
@@ -323,6 +325,8 @@ product_attributes = [
 product_attributes.each do |attr|
   Product.create(attr) unless Product.where(attr).first
 end
+
+
 
 
 

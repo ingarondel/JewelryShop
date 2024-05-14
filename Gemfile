@@ -32,17 +32,16 @@ gem "active_model_serializers"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ mswin mswin64 mingw x64_mingw jruby ]
 
+gem "rswag"
+gem "factory_bot"
+gem 'pg'
 
 group :development, :test do
 gem "database_cleaner"
-gem "factory_bot"
-gem 'pg'
 gem "pry"
 gem "rails-controller-testing"
 gem "rb-readline"
 gem "rspec-rails"
-gem "rswag"
-
 end
 
 group :development do
