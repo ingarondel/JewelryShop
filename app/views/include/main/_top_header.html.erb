@@ -10,7 +10,7 @@
             <select tabindex="4" class="dropdown">
               <option value="" class="label">Dollar :</option>
               <option value="1">Dollar</option>
-              <option value="2">Euro</option> 
+              <option value="2">Euro</option>
             </select>
           </div>
           <div class="box1">
@@ -29,9 +29,6 @@
               <li> <%= link_to 'administrator', '#', style: "color: red" %></li>
               <li>
                 <%= link_to 'API', '/api-docs', style: "color: blue" %>
-              </li>
-              <li>
-                <%= link_to 'Generate JWT-token',  new_token_path,  style: "color: green" %>
               </li>
               <% end %>
               <li>
@@ -62,7 +59,7 @@
         <div class="cart box_1">
           <a href="/cart" onclick="getCart(); return false;">
             <div class="total">
-             
+
               <%= image_tag('cart-1.png', alt: "") %>
               <% if cart_items.any? %>
               <span class="simpleCart_total">
