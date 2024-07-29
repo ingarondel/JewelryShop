@@ -1,6 +1,4 @@
 class TokensController < ApplicationController
-  def new
-  end
 
   def generate_token
     api_token = current_user.api_tokens.create!
@@ -8,7 +6,7 @@ class TokensController < ApplicationController
     @jwt_token = api_token.token
 
     respond_to do |format|
-      format.html { render :new } 
+      format.html { render :new }
     end
   end
 end
